@@ -25,17 +25,35 @@
     <button onclick="getNum()">totalNumberOfHouses</button>
     <br></br>
     <span>This House belongs to: </span>
+    <span>House #</span>
     <input type="number" id="myNumber" value="2">
     <button onclick="kiska_ghar()">Go</button>
     <br></br>
     <span>Is this House for sale?  </span>
+    <span>House #</span>
     <input type="number" id="saleNumber" value="2">
     <button onclick="bechega_kya()">Go</button>
+    <br></br>
+    <span>Buy this House! </span>
+    <span>House #</span>
+    <input type="number" id="buyNumber" value="2">
+    <button onclick="ghar_kharid()">Go</button>
+    <br></br>
+    <span>Create House </span>
+    <br></br>
+    <span>House Price</span>
+    
+    <input type="number" id="priceNumber" value="2">
+    <select id=for_sale_flag>
+      <option value="true">This house is for sale.</option>
+      <option value="false">This house is not for sale.</option>
+    </select>
+    <button onclick="ghar_bana()">Go</button>
     <br></br>
     <span id="event_panel">Hi, I am the voice of Ethereum Blockchain!</span>
 
     <script src="scripts/main.js"></script>
-    <p id="demo">for demo</p>
+    
   </body>
 </html>
 

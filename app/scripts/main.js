@@ -154,6 +154,37 @@ var abiD=[ { "inputs": [], "payable": false, "stateMutability": "nonpayable", "t
     });
 
 
+    var HBE=instance.HBE();
+	HBE.watch(function(error, result){
+        if(error){
+            console.error('Contract Event Error');
+        } else {
+            console.log("HBE watcher triggered");
+            console.log(result);
+            var refined_result=result.args.status;
+            if(refined_result==true)
+            var created_string="Congrats! You bought the house!";
+            if(refined_result==false)
+            var created_string="Something went wrong, house not bought!";
+            setData('event_panel',created_string);
+        }
+    });
+    var CHE=instance.CHE();
+	CHE.watch(function(error, result){
+        if(error){
+            console.error('Contract Event Error');
+        } else {
+            console.log("CHE watcher triggered");
+            console.log(result);
+            var refined_result1=result.args.house_id;
+            var refined_result2=result.args.price;
+            var refined_result3=result.args.owner;
+            var created_string="New House created with id#"+refined_result1;
+            setData('event_panel',created_string);
+        }
+    });
+
+
     return instance;
     }
     
@@ -167,7 +198,6 @@ var abiD=[ { "inputs": [], "payable": false, "stateMutability": "nonpayable", "t
         gas: 4700000
     }
     var input=document.getElementById("myNumber").value;
-    setData('demo',input);
     instance.this_house_belongs_to.sendTransaction(input,txnObject,function(error, result)  {
             console.log('RECVED>>',error,result);   
             if(error){
@@ -188,7 +218,6 @@ function bechega_kya(){
        gas: 4700000
    }
    var input=document.getElementById("saleNumber").value;
-   setData('demo',input);
    instance.is_this_house_for_sale.sendTransaction(input,txnObject,function(error, result)  {
            console.log('RECVED>>',error,result);   
            if(error){
@@ -199,9 +228,42 @@ function bechega_kya(){
        });
 }
 
-function    setExecuteResultUI(callType,functionName, parameter, return_value, txHash, error){
-    var detail = callType+':'+functionName+'('+parameter+')';
-    if(error)  detail += ' FAILED '+return_value;
-    else detail += 'Successful';
-    console.log('hua 1');
+function ghar_kharid(){
+    console.log("in ghar_kharid");
+    var a = document.getElementById("contract_hash");
+   var acnt=document.getElementById("accInfo");
+   var instance = createContractInstance(a.textContent);
+   var    txnObject = {
+       from: acnt.textContent,
+       gas: 4700000
+   }
+   var input=document.getElementById("buyNumber").value;
+   instance.buy_house.sendTransaction(input,txnObject,function(error, result)  {
+           console.log('RECVED>>',error,result);   
+           if(error){
+               console.log("error ghar_kharid");
+           } else {
+               console.log("success ghar_kharid");
+           }
+       });
+}
+function ghar_bana(){
+    console.log("in ghar_bana");
+    var a = document.getElementById("contract_hash");
+   var acnt=document.getElementById("accInfo");
+   var instance = createContractInstance(a.textContent);
+   var    txnObject = {
+       from: acnt.textContent,
+       gas: 4700000
+   }
+   var input1=document.getElementById("priceNumber").value;
+   var input2=document.getElementById("for_sale_flag").value;
+   instance.createHouse(input1,input2,txnObject,function(error, result)  {
+           console.log('RECVED>>',error,result);   
+           if(error){
+               console.log("error ghar_bana");
+           } else {
+               console.log("success ghar_bana");
+           }
+       });
 }
