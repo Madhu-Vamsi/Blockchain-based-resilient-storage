@@ -111,20 +111,55 @@ var abiD=[ { "inputs": [], "payable": false, "stateMutability": "nonpayable", "t
 
 
 
-	var eventWatcher=instance.TNH();
-	eventWatcher.watch(function(error, result){
+	var TNH=instance.TNH();
+	TNH.watch(function(error, result){
         if(error){
             console.error('Contract Event Error');
         } else {
-            console.log("watcher triggered");
+            console.log("TNH watcher triggered");
             console.log(result);
             var created_string="Total number of houses in the present world is: "+result.args.total_number_of_houses;
             setData('event_panel',created_string);
         }
     });
 
+
+    var THBT=instance.THBT();
+	THBT.watch(function(error, result){
+        if(error){
+            console.error('Contract Event Error');
+        } else {
+            console.log("THBT watcher triggered");
+            console.log(result);
+            var created_string="This house belongs to: "+result.args.owner_address;
+            setData('event_panel',created_string);
+        }
+    });
+
+
     return instance;
-	}
+    }
+    
+    function kiska_ghar(){
+        console.log("in kiskaGhar");
+	 var a = document.getElementById("contract_hash");
+	var acnt=document.getElementById("accInfo");
+    var instance = createContractInstance(a.textContent);
+    var    txnObject = {
+        from: acnt.textContent,
+        gas: 4700000
+    }
+    var input=document.getElementById("myNumber").value;
+    setData('demo',input);
+    instance.this_house_belongs_to.sendTransaction(input,txnObject,function(error, result)  {
+            console.log('RECVED>>',error,result);   
+            if(error){
+                console.log("error kiska_ghar");
+            } else {
+                console.log("success_kiska_ghar");
+            }
+        });
+    }
 
 function    setExecuteResultUI(callType,functionName, parameter, return_value, txHash, error){
     var detail = callType+':'+functionName+'('+parameter+')';
