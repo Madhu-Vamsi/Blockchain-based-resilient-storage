@@ -137,6 +137,23 @@ var abiD=[ { "inputs": [], "payable": false, "stateMutability": "nonpayable", "t
     });
 
 
+    var ITHFS=instance.ITHFS();
+	ITHFS.watch(function(error, result){
+        if(error){
+            console.error('Contract Event Error');
+        } else {
+            console.log("ITHFS watcher triggered");
+            console.log(result);
+            var refined_result=result.args.verdict;
+            if(refined_result==true)
+            var created_string="Yes this house is for sale!";
+            if(refined_result==false)
+            var created_string="No, this house is not for sale!";
+            setData('event_panel',created_string);
+        }
+    });
+
+
     return instance;
     }
     
@@ -160,6 +177,27 @@ var abiD=[ { "inputs": [], "payable": false, "stateMutability": "nonpayable", "t
             }
         });
     }
+
+function bechega_kya(){
+    console.log("in bechega_kya");
+    var a = document.getElementById("contract_hash");
+   var acnt=document.getElementById("accInfo");
+   var instance = createContractInstance(a.textContent);
+   var    txnObject = {
+       from: acnt.textContent,
+       gas: 4700000
+   }
+   var input=document.getElementById("saleNumber").value;
+   setData('demo',input);
+   instance.is_this_house_for_sale.sendTransaction(input,txnObject,function(error, result)  {
+           console.log('RECVED>>',error,result);   
+           if(error){
+               console.log("error bechega_kya");
+           } else {
+               console.log("success bechega_kya");
+           }
+       });
+}
 
 function    setExecuteResultUI(callType,functionName, parameter, return_value, txHash, error){
     var detail = callType+':'+functionName+'('+parameter+')';
