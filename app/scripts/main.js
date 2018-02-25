@@ -6,7 +6,7 @@ console.log('APP started');
     // Use Mist/MetaMask's provider
     window.web3 = new Web3(web3.currentProvider);
     //console.log("MetaMask detected!!");
-    setData("log","MetaMask detected");
+    setData("log","MetaMask!! detected");
   } else {
     //console.log('Injected web3 Not Found!!!')
     // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
