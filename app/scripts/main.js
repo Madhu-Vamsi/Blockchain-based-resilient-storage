@@ -15,9 +15,6 @@ console.log('APP started');
     window.web3 = new Web3(new Web3.providers.HttpProvider(provider));
     setData("log","Other Provider detected");
   }
-  //var value=doGetAccounts();
-  //var value='logs';
-  //setData("log",value);
   var acc=doGetAccounts();
   setData('accInfo',acc);
   console.log("set up of acc info done");
@@ -26,38 +23,22 @@ console.log('APP started');
 function doDeployContract(){
 	console.log("trying to doDeployContract");
 	var acc=doGetAccounts();
-  setData('accInfo',acc);
-	//var accounts=doGetAccounts();
-	
-	console.log("in do deploy");
-	//console.log(acc);
-// 	var contract=web3.eth.contract(
-// ======= ./interact.sol:sample =======
-// Contract JSON ABI 
-// [{"constant":false,"inputs":[],"name":"getNum","outputs":[{"name":"n","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"n","type":"uint256"}],"name":"setNum","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"x","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"caller","type":"address"},{"indexed":true,"name":"oldNum","type":"bytes32"},{"indexed":true,"name":"newNum","type":"bytes32"}],"name":"NumberSetEvent","type":"event"}]
-// );
-// 	var abiDefinition = JSON.parse(abiDefinitionString);
-// 	console.log("contract abi");
-// 	console.log(abiDefinition);
-
-
-var x = 5;/* var of type uint256 here */ ;
-var sampleContract = web3.eth.contract([{"constant":false,"inputs":[],"name":"getNum","outputs":[{"name":"n","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"n","type":"uint256"}],"name":"setNum","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"x","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"caller","type":"address"},{"indexed":true,"name":"oldNum","type":"bytes32"},{"indexed":true,"name":"newNum","type":"bytes32"}],"name":"NumberSetEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"newNum","type":"bytes32"}],"name":"NumberGetEvent","type":"event"}]);
-var sample = sampleContract.new(
-   x,
+setData('accInfo',acc);
+console.log("in do deploy");
+var houseappContract = web3.eth.contract([{"constant":false,"inputs":[{"name":"p","type":"uint256"},{"name":"fs","type":"bool"}],"name":"createHouse","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"getTotalNumberOfHouses","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"i","type":"uint256"}],"name":"this_house_belongs_to","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"i","type":"uint256"}],"name":"is_this_house_for_sale","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"i","type":"uint256"}],"name":"buy_house","outputs":[{"name":"","type":"bool"}],"payable":true,"stateMutability":"payable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"total_number_of_houses","type":"uint256"}],"name":"TNH","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"status","type":"bool"}],"name":"HBE","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"owner_address","type":"address"}],"name":"THBT","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"house_id","type":"uint256"},{"indexed":false,"name":"price","type":"uint256"},{"indexed":false,"name":"owner","type":"address"}],"name":"CHE","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"verdict","type":"bool"}],"name":"ITHFS","type":"event"}]);
+var houseapp = houseappContract.new(
    {
      from: web3.eth.accounts[0], 
-     data: '0x6060604052341561000f57600080fd5b6040516020806101b083398101604052808051906020019091905050806000819055505061016e806100426000396000f30060606040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806367e0badb14610051578063cd16ecbf1461007a575b600080fd5b341561005c57600080fd5b61006461009d565b6040518082815260200191505060405180910390f35b341561008557600080fd5b61009b60048080359060200190919050506100dc565b005b60008054600102600019167f806b74764459bc329637dea1b7c07cbbed4298e1841969862c6c5cbddc65f25460405160405180910390a2600054905090565b600080549050816000819055506000546001026000191681600102600019163373ffffffffffffffffffffffffffffffffffffffff167f108fd0bf2253f6baf35f111ba80fb5369c2e004b88e36ac8486fcee0c87e61ce60405160405180910390a450505600a165627a7a72305820a4d1f15c0017fe562be604fcd26a6b18c340468e2aef7c8bdbb066aa5a98de000029', 
-     gas: '4400000'
+     data: '0x6060604052341561000f57600080fd5b61002d60018061008f64010000000002610197176401000000009004565b61004c6002600161008f64010000000002610197176401000000009004565b61006b6008600161008f64010000000002610197176401000000009004565b61008a604d600061008f64010000000002610197176401000000009004565b61027f565b60008081548092919060010191905055506080604051908101604052803373ffffffffffffffffffffffffffffffffffffffff1681526020018381526020016000548152602001821515815250600260008054815260200190815260200160002060008201518160000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550602082015181600101556040820151816002015560608201518160030160006101000a81548160ff02191690831515021790555090505060011515600260008054815260200190815260200160002060030160009054906101000a900460ff161515141561020657600260008054815260200190815260200160002060030160009054906101000a900460ff1660016000600260008054815260200190815260200160002060020154815260200190815260200160002060006101000a81548160ff0219169083151502179055505b7f73bab136d6d96694794e26fc2ca6b9b0f2a1ea8e79650e18639bb2987cf7c8a66000548333604051808481526020018381526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001935050505060405180910390a15050565b61081d8061028e6000396000f30060606040526004361061006d576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063215daf89146100725780635431e8fa146100a057806394c1d21a146100c9578063a9de1bfb1461012c578063cde71b9f14610167575b600080fd5b341561007d57600080fd5b61009e60048080359060200190919080351515906020019091905050610197565b005b34156100ab57600080fd5b6100b3610387565b6040518082815260200191505060405180910390f35b34156100d457600080fd5b6100ea60048080359060200190919050506103bf565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b341561013757600080fd5b61014d6004808035906020019091905050610514565b604051808215151515815260200191505060405180910390f35b61017d6004808035906020019091905050610604565b604051808215151515815260200191505060405180910390f35b60008081548092919060010191905055506080604051908101604052803373ffffffffffffffffffffffffffffffffffffffff1681526020018381526020016000548152602001821515815250600260008054815260200190815260200160002060008201518160000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550602082015181600101556040820151816002015560608201518160030160006101000a81548160ff02191690831515021790555090505060011515600260008054815260200190815260200160002060030160009054906101000a900460ff161515141561030e57600260008054815260200190815260200160002060030160009054906101000a900460ff1660016000600260008054815260200190815260200160002060020154815260200190815260200160002060006101000a81548160ff0219169083151502179055505b7f73bab136d6d96694794e26fc2ca6b9b0f2a1ea8e79650e18639bb2987cf7c8a66000548333604051808481526020018381526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001935050505060405180910390a15050565b600080547f267820cd95f5dc0c2abb4551079b4ff700eef3dc8dedee571943df066d3061c360405160405180910390a2600054905090565b60008060005483111561043b57600090507f89d01a0fbff9930fba6af7583962fa44bfa45d3cb48b5d5d4672453c5070d29781604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a180915061050e565b7f89d01a0fbff9930fba6af7583962fa44bfa45d3cb48b5d5d4672453c5070d2976002600085815260200190815260200160002060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390a16002600084815260200190815260200160002060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1691505b50919050565b60008060005483111561056957600090507f507e6348b6fdaeb2973bba5b4cdafdbcbb5fe2692b331a75e5067616e4a9687981604051808215151515815260200191505060405180910390a1600091506105fe565b600054831115156105fd577f507e6348b6fdaeb2973bba5b4cdafdbcbb5fe2692b331a75e5067616e4a968796002600085815260200190815260200160002060030160009054906101000a900460ff16604051808215151515815260200191505060405180910390a16002600084815260200190815260200160002060030160009054906101000a900460ff1691506105fe565b5b50919050565b60008060008060009250349150339050600015156001600087815260200190815260200160002060009054906101000a900460ff1615151415610684577fc45756ca18515398cb68c84487d50bf04f62f3d843b99451406113414a38ed2f83604051808215151515815260200191505060405180910390a18293506107e9565b60026000868152602001908152602001600020600101548210156106e5577fc45756ca18515398cb68c84487d50bf04f62f3d843b99451406113414a38ed2f83604051808215151515815260200191505060405180910390a18293506107e9565b6002600086815260200190815260200160002060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166108fc839081150290604051600060405180830381858888f193505050505060019250806002600087815260200190815260200160002060000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055507fc45756ca18515398cb68c84487d50bf04f62f3d843b99451406113414a38ed2f83604051808215151515815260200191505060405180910390a18293505b5050509190505600a165627a7a723058202b14457da5a19570465005f15f990b4339463f31d1df235784afb1038c52ecce0029', 
+     gas: '4700000'
    }, function (e, contract){
     console.log(e, contract);
     setData('txHash',contract.transactionHash);
-
     if (typeof contract.address !== 'undefined') {
          console.log('Contract mined! address: ' + contract.address + ' transactionHash: ' + contract.transactionHash);
          setData('contract_hash',contract.address);
     }
- })
+ });
 
 
 
@@ -72,130 +53,73 @@ function setData(docElementId, html) {
  function doGetAccounts() {	
 console.log("in do get accounts");
   web3.eth.getAccounts(function(error,result){
-  //	console.log("hello");
 if(error)
-	console.log('error');
-	
+	console.log('error');	
 else
 {
 	var acc=result;
-	//setData('accountsSection',accounts);
-	// var aa=web3.eth.getBalance(accounts);
-	// console.log("aa");
-	// console.log(aa);
-
 }
 console.log("hey I am in do get accounts");
-//console.log(typeOf, accounts);
-//console.log(typeof 'acc');
-//console.log(acc.length);
-//console.log(acc);
 setData('accInfo',acc);
 return acc;
   });
-
 }
 
 function getNum()
 {
-	// var abiD=[{"constant":false,"inputs":[],"name":"getNum","outputs":[{"name":"n","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"n","type":"uint256"}],"name":"setNum","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"x","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"caller","type":"address"},{"indexed":true,"name":"oldNum","type":"bytes32"},{"indexed":true,"name":"newNum","type":"bytes32"}],"name":"NumberSetEvent","type":"event"}];
-	// var a = document.getElementById("contract_hash");
-	// //console.log(typeof,a);
-	// console.log(a.textContent);
 	 console.log("in getNum");
 	 var a = document.getElementById("contract_hash");
 	var acnt=document.getElementById("accInfo");
-    // creating the cntract instance
     var instance = createContractInstance(a.textContent);
     var    txnObject = {
         from: acnt.textContent,
         gas: 4700000
     }
-    // instance.getNum.call({},web3.eth.defaultBlock, function(error,result){
-    //         setExecuteResultUI('Call','getNum','',result,'',false);
-    //     });
-
-    instance.getNum.sendTransaction(txnObject,function(error, result)  {
-
+    instance.getTotalNumberOfHouses.sendTransaction(txnObject,function(error, result)  {
             console.log('RECVED>>',error,result);   
             if(error){
-                setExecuteResultUI('Send Transaction:   ','getNum','',error,'',true);
+                console.log("error somewhere");
             } else {
-                setExecuteResultUI('Send Transaction:   ','getNum','',result,result,false);
+                console.log("success");
             }
         });
-
-	// console.log("in getNum");
-	// instance.getNum.sendTransaction(txnObject,function(error, result)  {
-
- //            console.log('RECVED>>',error,result);   
- //            if(error){
- //                console.log("in error");
- //                //setExecuteResultUI('Send Transaction:   ',funcName,'',error,'',true);
- //            } else {
- //            	console.log("not in error");
- //                //setExecuteResultUI('Send Transaction:   ',funcName,parameterValue,result,result,false);
- //            	 setExecuteResultUI('Send Transaction:   ','getNum','',result,result,false);
- //            }
- //        });
-
 }
-
-
 function setNum()
 {
-
 	var a = document.getElementById("contract_hash");
 	var acnt=document.getElementById("accInfo");
-    // creating the cntract instance
     var instance = createContractInstance(a.textContent);
     var    txnObject = {
         from: acnt.textContent,
         gas: 4400000
     }
 	console.log("in setNum");
-
-
 	instance.setNum.sendTransaction(200203628,txnObject,function(error, result)  {
-
             console.log('RECVED>>>>><<<<<',error,result);   
             if(error){
                 console.log("in error");
-                //setExecuteResultUI('Send Transaction:   ',funcName,'',error,'',true);
             } else {
-            	console.log("not in error");
-                //setExecuteResultUI('Send Transaction:   ',funcName,parameterValue,result,result,false);
-            
+            	console.log("not in error");            
             }
         });
-
-
-
-
-
 }
 
 function  createContractInstance(addr){
-var abiD=[{"constant":false,"inputs":[],"name":"getNum","outputs":[{"name":"n","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"n","type":"uint256"}],"name":"setNum","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"x","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"caller","type":"address"},{"indexed":true,"name":"oldNum","type":"bytes32"},{"indexed":true,"name":"newNum","type":"bytes32"}],"name":"NumberSetEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"newNum","type":"bytes32"}],"name":"NumberGetEvent","type":"event"}];
+var abiD=[ { "inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [ { "indexed": false, "name": "house_id", "type": "uint256" }, { "indexed": false, "name": "price", "type": "uint256" }, { "indexed": false, "name": "owner", "type": "address" } ], "name": "CHE", "type": "event" }, { "constant": false, "inputs": [ { "name": "i", "type": "uint256" } ], "name": "this_house_belongs_to", "outputs": [ { "name": "", "type": "address" } ], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "anonymous": false, "inputs": [ { "indexed": false, "name": "status", "type": "bool" } ], "name": "HBE", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": false, "name": "verdict", "type": "bool" } ], "name": "ITHFS", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": false, "name": "owner_address", "type": "address" } ], "name": "THBT", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": true, "name": "total_number_of_houses", "type": "uint256" } ], "name": "TNH", "type": "event" }, { "constant": false, "inputs": [ { "name": "i", "type": "uint256" } ], "name": "is_this_house_for_sale", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "name": "i", "type": "uint256" } ], "name": "buy_house", "outputs": [ { "name": "", "type": "bool" } ], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": false, "inputs": [ { "name": "p", "type": "uint256" }, { "name": "fs", "type": "bool" } ], "name": "createHouse", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [], "name": "getTotalNumberOfHouses", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "stateMutability": "nonpayable", "type": "function" } ];
 	var    contract = web3.eth.contract(abiD);
 	var    instance = contract.at(addr);
 
 
 
-	var eventWatcher=instance.NumberSetEvent();
+	var eventWatcher=instance.TNH();
 	eventWatcher.watch(function(error, result){
         if(error){
             console.error('Contract Event Error');
         } else {
-           
-        //    console.log("Event.watch="+JSON.stringify(result))
-            // increment the count watch_instance_event_count
-            //contractEventCounter++;
             console.log("watcher triggered");
             console.log(result);
-            setData('event_panel',result.args.newNum);
-
-            //addEventListItem('watch_contract_events_list',result,5);
+            var created_string="Total number of houses in the present world is: "+result.args.total_number_of_houses;
+            setData('event_panel',created_string);
         }
     });
 
@@ -207,13 +131,4 @@ function    setExecuteResultUI(callType,functionName, parameter, return_value, t
     if(error)  detail += ' FAILED '+return_value;
     else detail += 'Successful';
     console.log('hua 1');
-    // setData('invoke_details',detail,(error));
-
-    // setData('invoke_return_value',return_value,(error));
-
-    // console.log('return_value=',return_value)
-
-    // setData('invoke_contracttransactionhash', txHash, false);
-    // //invoke_contracttransactionhash_link
-    // setEtherscanIoLink('invoke_contracttransactionhash_link', 'tx', txHash);
 }
