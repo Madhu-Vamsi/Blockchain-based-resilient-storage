@@ -27,3 +27,19 @@ body {
   line-height: 1;
   letter-spacing: -1px;
 }
+
+.jumbotron {
+  margin-bottom: 0px;
+  background-image: url(background-2.jpeg);
+  background-position: 0% 25%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: white;
+  opacity: 0.9;
+  z-index: -1;
+  font-weight: 900;
+}
+
+p {
+  font-weight: 900;
+}
