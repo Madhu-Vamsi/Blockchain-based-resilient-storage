@@ -11,6 +11,7 @@
 </head>
 <body>
   <script src="/bower_components/jquery/dist/jquery.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <div class="container">
     <div class="jumbotron">
       <div class="app">
@@ -41,14 +42,21 @@
           <div class="col-md-3"><button onclick="bechega_kya()">Go</button></div>
         </div>
         <div class="row">
+          <div class="col-md-3">Get House Details </div>
+          <div class="col-md-1">House #</div>
+          <div class="col-md-1"><input class="form-text" type="number" id="houseNumber" value="2"></div>
+          <div class="col-md-3"><button onclick="get_house_details()">Get Details</button></div>
+          <div id="buyHouseButton" class="col-md-3 hidden"><button onclick="ghar_kharid()">Buy House</button></div>
+        </div>
+        <!--<div id="buyHouseButton" class="row hidden">
           <div class="col-md-3">Buy this House! </div>
           <div class="col-md-3">House #</div>
           <div class="col-md-3"><input class="form-text" type="number" id="buyNumber" value="2"></div>
           <div class="col-md-3"><button onclick="ghar_kharid()">Buy House</button></div>
-        </div>
+        </div>-->
         <!--<div class="row">
-        <span>Create House </span>
-      </div>-->
+          <span>Create House </span>
+        </div>-->
         <div class="row">
           <div class="col-md-3">House Price</div>
           <div class="col-md-3"><input type="number" id="priceNumber" value="2"></div>

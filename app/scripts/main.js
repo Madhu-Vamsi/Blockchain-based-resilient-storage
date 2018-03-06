@@ -39,15 +39,6 @@ function doDeployContract() {
       if (typeof contract.address !== 'undefined') {
         console.log('Contract mined! address: ' + contract.address + ' transactionHash: ' + contract.transactionHash);
         setData('contract_hash', contract.address);
-        houseapp.getHouse.call(3, function (error, result) {
-          if (error) {
-            console.log("could not get houses");
-          }
-          else {
-            house = result;
-            console.log(house);
-          }
-        });
       }
     });
 
@@ -253,6 +244,7 @@ function bechega_kya() {
 
 function ghar_kharid() {
   var account = web3.eth.accounts[0];
+  var houseValue = house[1]["c"] * 1000000000000000000;
   if (web3.eth.accounts[0] !== account) {
     account = web3.eth.accounts[0];
   }
@@ -265,9 +257,9 @@ function ghar_kharid() {
     //to: '0x5b340172816C63683733F5b30106495DCBc9D85D',
     gas: 4400000,
     //gasPrice: 200000*4400000,
-    value: 1000000000000000000
+    value: houseValue
   }
-  var input = document.getElementById("buyNumber").value;
+  var input = document.getElementById("houseNumber").value;
   houseapp.buy_house.sendTransaction(input, txnObject, function (error, result) {
     console.log('RECVED>>', error, result);
     if (error) {
@@ -298,6 +290,20 @@ function ghar_bana() {
       console.log("error ghar_bana");
     } else {
       console.log("success ghar_bana");
+    }
+  });
+}
+
+function get_house_details() {
+  var houseID = document.getElementById("houseNumber").value;
+  houseapp.getHouse.call(parseInt(houseID), function (error, result) {
+    if (error) {
+      console.log("could not get houses");
+    }
+    else {
+      house = result;
+      console.log(house);
+      $("#buyHouseButton").removeClass("hidden");
     }
   });
 }

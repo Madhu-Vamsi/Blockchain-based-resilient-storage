@@ -43,3 +43,7 @@ body {
 p {
   font-weight: 900;
 }
+
+.hidden {
+  display: none;
+}
