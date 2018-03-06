@@ -56,17 +56,19 @@ contract HouseApp {
       }
         
         
-        // if(money_amount<full_house_info[i].price)
-        // {
-        //     HBE(status);
-        //     return status;
-        // }
-        full_house_info[i].owner.send(money_amount); //transfer money to owner
-        status=true;  //update status
-        full_house_info[i].owner=buyer_address; //update owner to buyer
-        HBE(status);
-        return status;
-      
+        else if(money_amount<full_house_info[i].price)
+        {
+            HBE(status);
+            return status;
+        }
+        else
+        {
+            full_house_info[i].owner.send(money_amount); //transfer money to owner
+            status=true;  //update status
+            full_house_info[i].owner=buyer_address; //update owner to buyer
+            HBE(status);
+            return status;
+        }
   }
   function this_house_belongs_to(uint i) public returns(address){
       if(i>total_houses){
@@ -92,5 +94,9 @@ contract HouseApp {
           return full_house_info[i].for_sale;
       }
   }
+
+ function getHouse(uint id) public constant returns(address, uint,bool) {
+        return (full_house_info[id].owner, full_house_info[id].price, full_house_info[id].for_sale);
+    }
   
-}
+} 
