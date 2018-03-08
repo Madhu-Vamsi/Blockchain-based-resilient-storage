@@ -1,5 +1,6 @@
 var houseapp;
 var house;
+var houseIndex
 console.log('\'Allo \'Allo!');
 window.addEventListener('load', function () {
   console.log('APP started');
@@ -8,7 +9,7 @@ window.addEventListener('load', function () {
     // Use Mist/MetaMask's provider
     window.web3 = new Web3(web3.currentProvider);
     //console.log("MetaMask detected!!");
-    setData("log", "MetaMask!! detected");
+    console.log("log", "MetaMask!! detected");
   } else {
     //console.log('Injected web3 Not Found!!!')
     // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
@@ -27,6 +28,7 @@ function doDeployContract() {
   //var acc=doGetAccounts();
   setData('accInfo', web3.eth.accounts[0]);
   console.log("in do deploy");
+  var track = "https://ropsten.etherscan.io/tx/";
   var houseappContract = web3.eth.contract([{ "constant": false, "inputs": [{ "name": "p", "type": "uint256" }, { "name": "fs", "type": "bool" }], "name": "createHouse", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "id", "type": "uint256" }], "name": "getHouse", "outputs": [{ "name": "", "type": "address" }, { "name": "", "type": "uint256" }, { "name": "", "type": "bool" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "getTotalNumberOfHouses", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "i", "type": "uint256" }], "name": "this_house_belongs_to", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "i", "type": "uint256" }], "name": "is_this_house_for_sale", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "i", "type": "uint256" }], "name": "buy_house", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "total_number_of_houses", "type": "uint256" }], "name": "TNH", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "name": "status", "type": "bool" }], "name": "HBE", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "name": "owner_address", "type": "address" }], "name": "THBT", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "name": "house_id", "type": "uint256" }, { "indexed": false, "name": "price", "type": "uint256" }, { "indexed": false, "name": "owner", "type": "address" }], "name": "CHE", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "name": "verdict", "type": "bool" }], "name": "ITHFS", "type": "event" }]);
   houseapp = houseappContract.new(
     {
@@ -35,14 +37,60 @@ function doDeployContract() {
       gas: '4700000'
     }, function (e, contract) {
       console.log(e, contract);
+      $("#hiddenContract").removeClass("hidden");
+      track += contract.transactionHash;
+      var a = document.getElementById("contractHash");
+      a.href = track;
+      //a.innerText = track;
       setData('txHash', contract.transactionHash);
       if (typeof contract.address !== 'undefined') {
         console.log('Contract mined! address: ' + contract.address + ' transactionHash: ' + contract.transactionHash);
         setData('contract_hash', contract.address);
+        getNum();
+        $("#contractHash").addClass("hidden");
+        $("#hiddenContractDiv").removeClass("hidden");
       }
     });
 
 
+}
+
+function createHouses(houseIndex) {
+  var element = $("#houseRows");
+  var row;
+  var id;
+  var hid;
+  for (var i = 1; i <= houseIndex; i++)
+  {
+    var newRow = document.createElement('div');
+    newRow.id = 'r-' + i;
+    newRow.className = 'row';
+    element.append(newRow);
+    id = "#r-" + i;
+    row = $(id);
+    hid = "#h-" + i;
+    //element.append("<div class='row'>");
+    row.append("<div class='col-md-2'>House ID:")
+    var newDiv = document.createElement('div');
+    newDiv.id = 'h-' + i;
+    newDiv.className = 'col-md-1 getDetails';
+    newDiv.innerHTML = i;
+    row.append(newDiv);
+    //var newDetails = document.createElement('div');
+    //newDetails.id = i;
+    //newDetails.className = 'col-md-3'
+    //newDetails.append("<button onclick='get_house_details()'>Get Details");
+    //row.append(newDetails);
+    row.append("<div class='col- md - 2'><button onclick='get_house_details()'>Get Price");
+    row.append("<div class='col-md-1 hidden price'>");
+    row.append("<div class='col- md - 2'><button onclick='kiska_ghar()'>Owner?</button></div>");
+    row.append("<div id='buyHouseButton' class='col-md-2 hidden buyButton'><button onblur='hide_button()' onclick='ghar_kharid()'>Buy House");
+  }
+}
+
+function hide_button() {
+  $('.buyButton').addClass("hidden");
+  $('.price').addClass("hidden");
 }
 
 function setData(docElementId, html) {
@@ -66,24 +114,33 @@ function doGetAccounts() {
 }
 
 function getNum() {
-  var account = web3.eth.accounts[0];
-  if (web3.eth.accounts[0] !== account) {
-    account = web3.eth.accounts[0];
-  }
-  console.log("in getNum");
-  var a = document.getElementById("contract_hash");
-  var acnt = document.getElementById("accInfo");
-  var instance = createContractInstance(a.textContent);
-  var txnObject = {
-    from: account,
-    gas: 4700000
-  }
-  instance.getTotalNumberOfHouses.sendTransaction(txnObject, function (error, result) {
-    console.log('RECVED>>', error, result);
+  //var account = web3.eth.accounts[0];
+  //if (web3.eth.accounts[0] !== account) {
+  //  account = web3.eth.accounts[0];
+  //}
+  //console.log("in getNum");
+  //var a = document.getElementById("contract_hash");
+  //var acnt = document.getElementById("accInfo");
+  //var instance = createContractInstance(a.textContent);
+  //var txnObject = {
+  //  from: account,
+  //  gas: 4700000
+  //}
+  //instance.getTotalNumberOfHouses.sendTransaction(txnObject, function (error, result) {
+  //  console.log('RECVED>>', error, result);
+  //  if (error) {
+  //    console.log("error somewhere");
+  //  } else {
+  //    console.log("success");
+  //  }
+  //});
+  houseapp.getTotalNumberOfHouses.call(function (error, result) {
     if (error) {
-      console.log("error somewhere");
-    } else {
-      console.log("success");
+      console.log("could not get the number of houses");
+    }
+    else {
+      houseIndex = result["c"][0];
+      createHouses(houseIndex);
     }
   });
 }
@@ -195,6 +252,8 @@ function createContractInstance(addr) {
 }
 
 function kiska_ghar() {
+  var eventTarget = event.target;
+  var houseID = eventTarget.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
   var account = web3.eth.accounts[0];
   if (web3.eth.accounts[0] !== account) {
     account = web3.eth.accounts[0];
@@ -207,13 +266,15 @@ function kiska_ghar() {
     from: account,
     gas: 4700000
   }
-  var input = document.getElementById("myNumber").value;
-  houseapp.this_house_belongs_to.sendTransaction(input, txnObject, function (error, result) {
+  //var input = document.getElementById("myNumber").value;
+  houseapp.this_house_belongs_to.sendTransaction(parseInt(houseID), txnObject, function (error, result) {
     console.log('RECVED>>', error, result);
     if (error) {
       console.log("error kiska_ghar");
     } else {
       console.log("success_kiska_ghar");
+      //$(eventTarget).parent().siblings('.owner').removeClass('hidden');
+      //$(eventTarget).parent().siblings('.owner').text(result);
     }
   });
 }
@@ -259,8 +320,8 @@ function ghar_kharid() {
     //gasPrice: 200000*4400000,
     value: houseValue
   }
-  var input = document.getElementById("houseNumber").value;
-  houseapp.buy_house.sendTransaction(input, txnObject, function (error, result) {
+  var input = event.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
+  houseapp.buy_house.sendTransaction(parseInt(input), txnObject, function (error, result) {
     console.log('RECVED>>', error, result);
     if (error) {
       console.log("error ghar_kharid");
@@ -294,8 +355,10 @@ function ghar_bana() {
   });
 }
 
-function get_house_details() {
-  var houseID = document.getElementById("houseNumber").value;
+function get_house_details(e) {
+  //var houseID = document.getElementById("houseNumber").value;
+  var eventTarget = event.target;
+  var houseID = eventTarget.parentElement.previousElementSibling.innerText;
   houseapp.getHouse.call(parseInt(houseID), function (error, result) {
     if (error) {
       console.log("could not get houses");
@@ -303,7 +366,11 @@ function get_house_details() {
     else {
       house = result;
       console.log(house);
-      $("#buyHouseButton").removeClass("hidden");
+      $(eventTarget).parent().siblings('.price').removeClass('hidden');
+      $(eventTarget).parent().siblings('.price').text(house[1]["c"]);
+      //$(eventTarget).parent().siblings('.owner').removeClass('hidden');
+      //$(eventTarget).parent().siblings('.owner').text(house[0]);
+      $(eventTarget).parent().siblings('.buyButton').removeClass('hidden');
     }
   });
 }

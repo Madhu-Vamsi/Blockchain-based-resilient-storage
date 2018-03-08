@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="">
 <head>
   <meta charset="utf-8">
@@ -15,65 +15,88 @@
   <div class="container">
     <div class="jumbotron">
       <div class="app">
-        <h2>Hi! you are logged in as:</h2>
-        <span id="accInfo">your account address</span>
-        <br></br>
-        <span id="log">..</span>
-        <br></br>
-        <button onclick="doDeployContract()">Deploy Contract</button>
-        <br></br>
-        <span>TxHash:- </span><span id='txHash'></span>
-        <br></br>
-        <span>Contract Address:- </span>
-        <span id="contract_hash">null</span>
-        <br></br>
-        <button onclick="getNum()">totalNumberOfHouses</button>
+        <h3 class="text-center">Block chain based secure transactions interface</h3>
+        <h4 class="text-center">Buy and sell properties securely and without paying a third party</h4>
         <br></br>
         <div class="row">
-          <div class="col-md-3">This House belongs to: </div>
-          <div class="col-md-3">House #</div>
-          <div class="col-md-3"><input type="number" id="myNumber" value="2"></div>
-          <div class="col-md-3"><button onclick="kiska_ghar()">Go</button></div>
+          <div class="col-md-3">Hi! you are logged in as:</div>
+          <div class="col-md-3" id="accInfo">your account address</div>
         </div>
+        <span id="log" class="hidden"></span>
+        <br />
         <div class="row">
-          <div class="col-md-3">Is this House for sale?  </div>
-          <div class="col-md-3">House #</div>
-          <div class="col-md-3"><input type="number" id="saleNumber" value="2"></div>
-          <div class="col-md-3"><button onclick="bechega_kya()">Go</button></div>
+          <div class="col-md-3">Please deploy the contract:</div>
+          <div class="col-md-1"><button onclick="doDeployContract()">Deploy</button></div>
+          <div id="hiddenContract" class="col-md-4 hidden"><a id="contractHash" target="_blank">Track transaction</a></div>
+          <div id="hiddenContractDiv" class="col-md-4 hidden">Transaction successful</div>
         </div>
-        <div class="row">
-          <div class="col-md-3">Get House Details </div>
-          <div class="col-md-1">House #</div>
-          <div class="col-md-1"><input class="form-text" type="number" id="houseNumber" value="2"></div>
-          <div class="col-md-3"><button onclick="get_house_details()">Get Details</button></div>
-          <div id="buyHouseButton" class="col-md-3 hidden"><button onclick="ghar_kharid()">Buy House</button></div>
-        </div>
-        <!--<div id="buyHouseButton" class="row hidden">
-          <div class="col-md-3">Buy this House! </div>
-          <div class="col-md-3">House #</div>
-          <div class="col-md-3"><input class="form-text" type="number" id="buyNumber" value="2"></div>
-          <div class="col-md-3"><button onclick="ghar_kharid()">Buy House</button></div>
-        </div>-->
-        <!--<div class="row">
-          <span>Create House </span>
-        </div>-->
-        <div class="row">
-          <div class="col-md-3">House Price</div>
-          <div class="col-md-3"><input type="number" id="priceNumber" value="2"></div>
-          <div class="col-md-3">
-            <select id=for_sale_flag>
-              <option value="true">This house is for sale.</option>
-              <option value="false">This house is not for sale.</option>
-            </select>
-          </div>
-          <div class="col-md-3"><button onclick="ghar_bana()">Create House</button></div>
+        <div id="houseRows">
+
         </div>
         <br />
-        <p id="event_panel">Hi, I am the voice of Ethereum Blockchain!</p>
-        <script src="scripts/main.js"></script>
+        <h4 id="event_panel">Hi, I am the voice of Ethereum Blockchain!</h4>
+        <div id="hashID" class="row hidden">
+          <span>TxHash:- </span><span id='txHash'></span>
+          <br></br>
+          <span>Contract Address:- </span>
+          <span id="contract_hash">null</span>
+          <br></br>
+        </div>
+        <div class="hidden">
+          <button onclick="getNum()">totalNumberOfHouses</button>
+          <br></br>
+          <div class="row">
+            <div class="col-md-3">This House belongs to: </div>
+            <div class="col-md-3">House #</div>
+            <div class="col-md-3"><input type="number" id="myNumber" value="2"></div>
+            <div class="col-md-3"><button onclick="kiska_ghar()">Go</button></div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">Is this House for sale?  </div>
+            <div class="col-md-3">House #</div>
+            <div class="col-md-3"><input type="number" id="saleNumber" value="2"></div>
+            <div class="col-md-3"><button onclick="bechega_kya()">Go</button></div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">Get House Details </div>
+            <div class="col-md-1">House #</div>
+            <div class="col-md-1"><input class="form-text" type="number" id="houseNumber" value="2"></div>
+            <div class="col-md-3"><button onclick="get_house_details()">Get Details</button></div>
+            <div id="buyHouseButton" class="col-md-3 hidden"><button onclick="ghar_kharid()">Buy House</button></div>
+          </div>
+          <!--<div id="buyHouseButton" class="row hidden">
+      <div class="col-md-3">Buy this House! </div>
+      <div class="col-md-3">House #</div>
+      <div class="col-md-3"><input class="form-text" type="number" id="buyNumber" value="2"></div>
+      <div class="col-md-3"><button onclick="ghar_kharid()">Buy House</button></div>
+    </div>-->
+          <!--<div class="row">
+      <span>Create House </span>
+    </div>-->
+          <br />
+          <div id="houseRows" class="row">
+
+
+          </div>
+          <div class="row">
+            <div class="col-md-3">House Price</div>
+            <div class="col-md-3"><input type="number" id="priceNumber" value="2"></div>
+            <div class="col-md-3">
+              <select id=for_sale_flag>
+                <option value="true">This house is for sale.</option>
+                <option value="false">This house is not for sale.</option>
+              </select>
+            </div>
+            <div class="col-md-3"><button onclick="ghar_bana()">Create House</button></div>
+          </div>
+          <br />
+          <br />
+          <div id="event_panel">Hi, I am the voice of Ethereum Blockchain!</div>
+          <script src="scripts/main.js"></script>
+        </div>
       </div>
-    </div>
   </div>
+    </div>
 </body>
 </html>
 
