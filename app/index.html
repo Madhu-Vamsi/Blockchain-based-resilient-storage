@@ -33,7 +33,20 @@
         <div id="houseRows">
 
         </div>
+        <div class="row create_house hidden">
+          <div class="col-md-3">House Price</div>
+          <div class="col-md-3"><input type="number" id="priceNumber" value="2"></div>
+          <div class="col-md-3">
+            <select id=for_sale_flag>
+              <option value="true">This house is for sale.</option>
+              <option value="false">This house is not for sale.</option>
+            </select>
+          </div>
+          <div class="col-md-3"><button onclick="ghar_bana()">Create House</button></div>
+        </div>
         <br />
+        <a class="hidden" id="track_transaction" target="_blank">Track transaction</a>
+        <div class="hidden" id="success_transaction" target=""></div>
         <h4 id="event_panel">Hi, I am the voice of Ethereum Blockchain!</h4>
         <div id="hashID" class="row hidden">
           <span>TxHash:- </span><span id='txHash'></span>
@@ -91,6 +104,8 @@
           </div>
           <br />
           <br />
+          <a class="hidden" id="track_transaction">Track transaction</a>
+          <div class="hidden" id="success_transaction"></div>
           <div id="event_panel">Hi, I am the voice of Ethereum Blockchain!</div>
           <script src="scripts/main.js"></script>
         </div>

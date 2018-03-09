@@ -56,6 +56,7 @@ function doDeployContract() {
 }
 
 function createHouses(houseIndex) {
+  $("#houseRows").empty();
   var element = $("#houseRows");
   var row;
   var id;
@@ -85,7 +86,9 @@ function createHouses(houseIndex) {
     row.append("<div class='col-md-1 hidden price'>");
     row.append("<div class='col- md - 2'><button onclick='kiska_ghar()'>Owner?</button></div>");
     row.append("<div id='buyHouseButton' class='col-md-2 hidden buyButton'><button onblur='hide_button()' onclick='ghar_kharid()'>Buy House");
+    //row.append('<div id="hiddenContract" class="col-md-4 hidden"><a id="contractHash" target="_blank">Track transaction</a></div>')
   }
+  $(".create_house").removeClass("hidden");
 }
 
 function hide_button() {
@@ -114,6 +117,7 @@ function doGetAccounts() {
 }
 
 function getNum() {
+  //$("#houseRows").empty();
   //var account = web3.eth.accounts[0];
   //if (web3.eth.accounts[0] !== account) {
   //  account = web3.eth.accounts[0];
@@ -243,6 +247,7 @@ function createContractInstance(addr) {
       var refined_result2 = result.args.price;
       var refined_result3 = result.args.owner;
       var created_string = "New House created with id#" + refined_result1;
+      //getNum();
       setData('event_panel', created_string);
     }
   });
@@ -252,7 +257,11 @@ function createContractInstance(addr) {
 }
 
 function kiska_ghar() {
+  $("#track_transaction").removeClass("hidden");
+  var t = document.getElementById("track_transaction");
+  //$("#success_transaction").removeClass("hidden");
   var eventTarget = event.target;
+  var track = "https://ropsten.etherscan.io/tx/";
   var houseID = eventTarget.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
   var account = web3.eth.accounts[0];
   if (web3.eth.accounts[0] !== account) {
@@ -268,10 +277,16 @@ function kiska_ghar() {
   }
   //var input = document.getElementById("myNumber").value;
   houseapp.this_house_belongs_to.sendTransaction(parseInt(houseID), txnObject, function (error, result) {
+    track += result; 
+    t.href = track; 
     console.log('RECVED>>', error, result);
     if (error) {
+      //$("#success_transaction").removeClass("hidden");
+      //$("#success_transaction").text("Transaction failed.");
       console.log("error kiska_ghar");
     } else {
+      //$("#success_transaction").removeClass("hidden");
+      //$("#success_transaction").text("Transaction Successful.");
       console.log("success_kiska_ghar");
       //$(eventTarget).parent().siblings('.owner').removeClass('hidden');
       //$(eventTarget).parent().siblings('.owner').text(result);
@@ -304,6 +319,13 @@ function bechega_kya() {
 }
 
 function ghar_kharid() {
+  $("#track_transaction").removeClass("hidden");
+  var t = document.getElementById("track_transaction");
+  //$("#success_transaction").removeClass("hidden");
+  //hide_button();
+  //$('.buyButton').addClass("hidden");
+  //$('.price').addClass("hidden");
+  var track = "https://ropsten.etherscan.io/tx/";
   var account = web3.eth.accounts[0];
   var houseValue = house[1]["c"] * 1000000000000000000;
   if (web3.eth.accounts[0] !== account) {
@@ -322,10 +344,16 @@ function ghar_kharid() {
   }
   var input = event.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
   houseapp.buy_house.sendTransaction(parseInt(input), txnObject, function (error, result) {
+    track += result;
+    t.href = track; 
     console.log('RECVED>>', error, result);
     if (error) {
+      //$("#success_transaction").removeClass("hidden");
+      //$("#success_transaction").text("Transaction failed.");
       console.log("error ghar_kharid");
     } else {
+      //$("#success_transaction").removeClass("hidden");
+      //$("#success_transaction").text("Transaction successful.");
       console.log("success ghar_kharid");
     }
   });
@@ -345,17 +373,21 @@ function ghar_bana() {
   }
   var input1 = document.getElementById("priceNumber").value;
   var input2 = document.getElementById("for_sale_flag").value;
-  instance.createHouse(input1, input2, txnObject, function (error, result) {
+  houseapp.createHouse.sendTransaction(input1, input2, txnObject, function (error, result) {
     console.log('RECVED>>', error, result);
     if (error) {
       console.log("error ghar_bana");
     } else {
+      houseIndex++;
+      //getNum();
+      createHouses(houseIndex);
       console.log("success ghar_bana");
     }
   });
 }
 
 function get_house_details(e) {
+  hide_button();
   //var houseID = document.getElementById("houseNumber").value;
   var eventTarget = event.target;
   var houseID = eventTarget.parentElement.previousElementSibling.innerText;
