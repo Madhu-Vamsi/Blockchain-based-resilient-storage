@@ -1,2 +1,12 @@
 # Blockchain-based-resilient-storage
-This project aims towards security and prevention of any undesired manipulation of sensitive public data(such as real estate property or shareholders of a company). The project uses Ethereum block-chain based distributed computing platform, which is an API for building decentralized(server-less) application on which data can be stored as well as computation can be performed.  We coded up a smart contract(in Solidity, a language for block-chain apps) with javascript on the front end for users to enter data and into the block-chain and also perform transactions on the block-chain which get reflected in almost real time(after they get mined!) on the ropsten network. 
+##Problem Statement
+This project aims towards security and prevention of any undesired manipulation of sensitive public data(such as real estate property or shareholders of a company). This is being achieved by putting such data on Blockchain to stop its manipulation, because it is almost impossible to change the blockchain.
+
+##Goals
+  1. House data be stored on ethereum block chain
+  2. New houses can added.
+  3. House data can be updated.
+  4. Adding buying functionality for the houses if the buyer has sufficient amounts of money.
+  
+  ##Blockchain Description
+  We have made a Ethereum blockchain based infrastructure 
