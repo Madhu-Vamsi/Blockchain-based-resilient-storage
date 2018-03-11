@@ -359,6 +359,9 @@ function ghar_kharid() {
   });
 }
 function ghar_bana() {
+  $("#track_transaction").removeClass("hidden");
+  var t = document.getElementById("track_transaction");
+  var track = "https://ropsten.etherscan.io/tx/";
   var account = web3.eth.accounts[0];
   if (web3.eth.accounts[0] !== account) {
     account = web3.eth.accounts[0];
@@ -374,6 +377,8 @@ function ghar_bana() {
   var input1 = document.getElementById("priceNumber").value;
   var input2 = document.getElementById("for_sale_flag").value;
   houseapp.createHouse.sendTransaction(input1, input2, txnObject, function (error, result) {
+    track += result;
+    t.href = track;
     console.log('RECVED>>', error, result);
     if (error) {
       console.log("error ghar_bana");
