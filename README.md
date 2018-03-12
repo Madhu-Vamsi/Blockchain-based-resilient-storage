@@ -26,29 +26,30 @@ https://youtu.be/EwQxYSbje04
 ## Steps to run the project:
 
 Step1:
-MetaMask download from chrome webstore
+Download MetaMasl from your web browser. (Example : chrome webstore).
+
+Steps 2:
 Make 2 accounts and mine 4 Ethers in each account.
 
-Step2:
-Download the git repository.
-
-Step3:
-Download Node JS. Check   it by command node -v
+Step 3:
+Download/ Clone the git repository.
 
 Step 4:
-Npm install on the root directory of the project
+Download Node JS. If it is already present, you may check it by command node -v.
 
-Step5:
+Step 5:
+Run the command Npm install on the root directory of the project. 
+
 Npm install -g gulp
 
 Step 6:
-Bower install
+Bower install.
 
 Step 7:
-Bower install web3
+Bower install web3.
 
 Step 8:
-Gulp serve
+Gulp serve.
 
 Step 9:
 If your default browser is not chrome, then open chrome and type “localhost:9000” in the url bar.
