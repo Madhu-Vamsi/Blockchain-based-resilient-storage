@@ -38,18 +38,18 @@ Step 4:
 Download Node JS. If it is already present, you may check it by command node -v.
 
 Step 5:
-Run the command Npm install on the root directory of the project. 
+Run the following commands on the root directory of the project. 
 
 Npm install -g gulp
 
-Step 6:
 Bower install.
 
-Step 7:
 Bower install web3.
 
-Step 8:
 Gulp serve.
 
-Step 9:
-If your default browser is not chrome, then open chrome and type “localhost:9000” in the url bar.
+Step 6:
+Open your browser and type “localhost:9000” in the url bar. You will be able to see the application.
+
+Step 7:
+Play with the functionality. (You may buy a new house or sell a house.)
