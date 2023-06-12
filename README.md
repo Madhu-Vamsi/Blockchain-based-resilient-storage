@@ -21,12 +21,12 @@ We have created a Proof-of-Concept for a fully distributed and decentralized app
 4. Adding buying functionality for the houses if the buyer has sufficient amounts of money.
   
 ## Link to view the video for the project : 
-https://youtu.be/EwQxYSbje04
+<!-- https://youtu.be/EwQxYSbje04 -->
  
 ## Steps to run the project:
 
 Step1:
-Download MetaMasl from your web browser. (Example : chrome webstore).
+Download MetaMask from your web browser. (Example : chrome webstore).
 
 Steps 2:
 Make 2 accounts and mine 4 Ethers in each account.
@@ -42,9 +42,11 @@ Run the following commands on the root directory of the project.
 
 Npm install -g gulp
 
-Bower install.
+npm i bower
+<!-- Bower install. -->
 
-Bower install web3.
+npm i web3
+<!-- Bower install web3. -->
 
 Gulp serve.
 
