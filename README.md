@@ -26,7 +26,7 @@ https://youtu.be/EwQxYSbje04
 ## Steps to run the project:
 
 Step1:
-Download MetaMasl from your web browser. (Example : chrome webstore).
+Download MetaMask from your web browser. (Example : chrome webstore).
 
 Steps 2:
 Make 2 accounts and mine 4 Ethers in each account.
