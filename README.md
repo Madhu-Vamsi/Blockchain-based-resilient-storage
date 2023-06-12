@@ -21,7 +21,7 @@ We have created a Proof-of-Concept for a fully distributed and decentralized app
 4. Adding buying functionality for the houses if the buyer has sufficient amounts of money.
   
 ## Link to view the video for the project : 
-https://youtu.be/EwQxYSbje04
+<!-- https://youtu.be/EwQxYSbje04 -->
  
 ## Steps to run the project:
 
