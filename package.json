@@ -41,5 +41,9 @@
         "single"
       ]
     }
+  },
+  "dependencies": {
+    "bower": "^1.8.14",
+    "web3": "^4.0.1"
   }
 }

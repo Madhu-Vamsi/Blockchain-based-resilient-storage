@@ -42,9 +42,11 @@ Run the following commands on the root directory of the project.
 
 Npm install -g gulp
 
-Bower install.
+npm i bower
+<!-- Bower install. -->
 
-Bower install web3.
+npm i web3
+<!-- Bower install web3. -->
 
 Gulp serve.
 
